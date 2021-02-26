@@ -24,10 +24,9 @@ namespace TicTocTo.Domain
         }
         public Player PlayerX { get; }
         public Player PlayerO { get; }
-
-        public Board Board { get; set; }
-        public IList<Player> Players { get; set; }
-        public IList<Move> Moves { get; set; }
+        public Board Board { get; private set; }
+        public IList<Player> Players { get; private set; }
+        public IList<Move> Moves { get; private set; }
 
         public OperationResult AddMove(Move move)
         {
@@ -36,16 +35,23 @@ namespace TicTocTo.Domain
                 return OperationResult.BuildFailure("No moves left!");
             }
 
-            var last = Moves.Last();
-            if (last.Player.Id == move.Player.Id)
+            if(Moves.Count < 9 && Moves.Count > 0)
             {
-                return OperationResult.BuildFailure("Not your turn!");
+                var last = Moves.Last();
+                if (last.Player.Id == move.Player.Id)
+                {
+                    return OperationResult.BuildFailure("Not your turn!");
+                }
             }
 
             var forkResult = Board.Fork(move.Position.Type, move.Player.MarkerType);
             if (forkResult)
             {
+                //var position = new Position(move.Position.Type);
+                //position.Mark(move.Player.MarkerType);
+
                 Moves.Add(move);
+
                 return OperationResult.BuildSuccess();
             }
             else

@@ -8,22 +8,26 @@ namespace TicTocTo.Domain
     {
         public Board()
         {
-            Positions.Add(new Position(PositionType.One));
-            Positions.Add(new Position(PositionType.Two));
-            Positions.Add(new Position(PositionType.Three));
-            Positions.Add(new Position(PositionType.Four));
-            Positions.Add(new Position(PositionType.Five));
-            Positions.Add(new Position(PositionType.Six));
-            Positions.Add(new Position(PositionType.Seven));
-            Positions.Add(new Position(PositionType.Eight));
-            Positions.Add(new Position(PositionType.Nine));
+            Positions = new List<Position>
+            {
+                new Position(PositionType.One),
+                new Position(PositionType.Two),
+                new Position(PositionType.Three),
+                new Position(PositionType.Four),
+                new Position(PositionType.Five),
+                new Position(PositionType.Six),
+                new Position(PositionType.Seven),
+                new Position(PositionType.Eight),
+                new Position(PositionType.Nine)
+            };
         }
-        public IList<Position> Positions { get; set; }
+        public IList<Position> Positions { get; private set; }
 
         public OperationResult Fork(PositionType positionType, MarkerType markerType)
         {
             var selectedPos = Positions.Single(x => x.Type == positionType);
-            return selectedPos.Mark(markerType);
+            var result = selectedPos.Mark(markerType);
+            return result;
         }
 
         public bool HasAllRow(PositionState state)

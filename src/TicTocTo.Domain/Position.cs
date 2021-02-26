@@ -34,7 +34,6 @@ namespace TicTocTo.Domain
         {
             if (State == PositionState.Empty)
             {
-
                 switch (markerType)
                 {
                     case MarkerType.X:

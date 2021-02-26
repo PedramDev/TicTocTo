@@ -26,7 +26,7 @@ namespace TicTocTo.Test
         public void NotAllowChangeFromXtoO()
         {
             var position = new Position(PositionType.Eight);
-            position.Mark(MarkerType.X);
+            position.Mark( MarkerType.X);
             position.Mark(MarkerType.O);
 
             Assert.Equal(PositionState.X, position.State);
